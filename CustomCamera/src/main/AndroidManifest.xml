@@ -20,6 +20,7 @@
 
         <activity android:name=".activity.CameraActivity"
             android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
             ></activity>
     </application>
 
