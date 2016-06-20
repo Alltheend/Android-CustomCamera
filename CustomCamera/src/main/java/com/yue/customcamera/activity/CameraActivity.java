@@ -9,7 +9,6 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -122,20 +121,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
         camera_delay_time_text = (TextView) findViewById(R.id.camera_delay_time_text);
 
         homecamera_bottom_relative = (RelativeLayout) findViewById(R.id.homecamera_bottom_relative);
-
-       /* homecamera_bottom_relative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-*/
-
-
-        /* RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-        btn_camera.setLayoutParams(layoutParams);
-        btn_camera.bringToFront();*/
     }
 
     private void initData() {
@@ -312,8 +297,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
         if (mHolder != null) {
             startPreview(mCamera, mHolder);
         }
-
-
     }
 
     /**
@@ -435,8 +418,8 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
 
                 //这里打印宽高 就能看到 CameraUtil.getInstance().getPropPictureSize(parameters.getSupportedPictureSizes(), 200);
                 // 这设置的最小宽度影响返回图片的大小 所以这里一般这是1000左右把我觉得
-                Log.d("bitmapWidth==", bitmap.getWidth() + "");
-                Log.d("bitmapHeight==", bitmap.getHeight() + "");
+//                Log.d("bitmapWidth==", bitmap.getWidth() + "");
+//                Log.d("bitmapHeight==", bitmap.getHeight() + "");
             }
         });
     }
@@ -461,9 +444,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
         parameters.setPictureSize(pictrueSize.width, pictrueSize.height);
 
         camera.setParameters(parameters);
-
-        Log.d("previewSize.width===", previewSize.width + "");
-        Log.d("previewSize.height===", previewSize.height + "");
 
         /**
          * 设置surfaceView的尺寸 因为camera默认是横屏，所以取得支持尺寸也都是横屏的尺寸
