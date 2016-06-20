@@ -6,5 +6,5 @@
 如果你想自己定义界面的话可以详细查看CameraActivity和更改它的布局文件activity_camera.xml.
 
 一些代码结构，注释和讲解可以查看我的博客
-[Android 自定义Camera(一)][http://blog.csdn.net/coderyue/article/details/50927177]
-[][Android 自定义Camera（二）][http://blog.csdn.net/coderyue/article/details/50966918]
+[http://blog.csdn.net/coderyue/article/details/50927177][Android 自定义Camera(一)]
+[Android 自定义Camera（二）][http://blog.csdn.net/coderyue/article/details/50966918]
