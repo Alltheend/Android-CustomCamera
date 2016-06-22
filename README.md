@@ -5,17 +5,5 @@ You can download the apk file folder , and then install the apk demo
 
 If you want to define your own interface , then you can view the detailed CameraActivity and change its layout file activity_camera.xml.
 
-**some Code Explanation**
-```
-//Test Android studio markdown
-private Camera getCamera(int id){
-        Camera camera = null;
-        try{
-            camera = Camera.open(id);
-        }catch (Exception e){
 
-        }
-        return camera;
-    }
-```
 
