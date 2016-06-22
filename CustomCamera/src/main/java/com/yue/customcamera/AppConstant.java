@@ -9,8 +9,12 @@ public class AppConstant {
         int ERROR = 2;
     }
 
-    public interface REQUEST_CODE {
+    public interface KEY{
+        String IMG_PATH = "IMG_PATH";
+    }
 
+    public interface REQUEST_CODE {
+        int CAMERA = 0;
     }
 
     public interface RESULT_CODE {

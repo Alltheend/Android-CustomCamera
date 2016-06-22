@@ -3,10 +3,12 @@ package com.yue.customcamera.activity;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.SurfaceHolder;
@@ -22,9 +24,11 @@ import android.widget.Toast;
 
 import com.yue.customcamera.AppConstant;
 import com.yue.customcamera.R;
+import com.yue.customcamera.utils.BitmapUtils;
 import com.yue.customcamera.utils.CameraUtil;
 import com.yue.customcamera.utils.SystemUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -414,7 +418,25 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
                 //将data 转换为位图 或者你也可以直接保存为文件使用 FileOutputStream
                 //这里我相信大部分都有其他用处把 比如加个水印 后续再讲解
                 Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                CameraUtil.getInstance().setTakePicktrueOrientation(mCameraId, bitmap);
+                Bitmap saveBitmap = CameraUtil.getInstance().setTakePicktrueOrientation(mCameraId, bitmap);
+
+                String img_path = getExternalFilesDir(Environment.DIRECTORY_DCIM).getPath() +
+                        File.separator + System.currentTimeMillis() + ".jpeg";
+
+                BitmapUtils.saveJPGE_After(context, saveBitmap, img_path, 100);
+
+                if(!bitmap.isRecycled()){
+                    bitmap.recycle();
+                }
+
+                if(!saveBitmap.isRecycled()){
+                    saveBitmap.recycle();
+                }
+
+                Intent intent = new Intent();
+                intent.putExtra(AppConstant.KEY.IMG_PATH, img_path);
+                setResult(AppConstant.RESULT_CODE.RESULT_OK, intent);
+                finish();
 
                 //这里打印宽高 就能看到 CameraUtil.getInstance().getPropPictureSize(parameters.getSupportedPictureSizes(), 200);
                 // 这设置的最小宽度影响返回图片的大小 所以这里一般这是1000左右把我觉得

@@ -5,11 +5,16 @@ package com.yue.customcamera.utils;
  */
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
 import android.view.Surface;
+
+import com.yue.customcamera.AppConstant;
+import com.yue.customcamera.activity.CameraActivity;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,6 +38,11 @@ public class CameraUtil {
         } else {
             return myCamPara;
         }
+    }
+
+    public void camera(Activity activity){
+        Intent intent = new Intent(activity, CameraActivity.class);
+        activity.startActivityForResult(intent, AppConstant.REQUEST_CODE.CAMERA);
     }
 
     /**

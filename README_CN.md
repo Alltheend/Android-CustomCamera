@@ -4,8 +4,32 @@
 
 你可以下载apk文件夹， 然后安装apk demo
 
-如果你想自己定义界面的话可以详细查看CameraActivity和更改它的布局文件activity_camera.xml.
+**如果你想自己定义界面的话可以详细查看CameraActivity和更改它的布局文件activity_camera.xml.**
 
 具体可以查看我的博客  
 [Android 自定义Camera(一)](http://blog.csdn.net/coderyue/article/details/50927177)  
 [Android 自定义Camera(二)](http://blog.csdn.net/coderyue/article/details/50966918)
+
+**简单说明**
+
+在我的MainActivity里可以这样调用
+```
+CameraUtil.getInstance().camera(MainActivity.this);
+```
+
+然后在onActivityResult里面获取返回的图片, 你也可以新建你的Activity这样调用
+```
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if(resultCode != AppConstant.RESULT_CODE.RESULT_OK){
+        return;
+    }
+
+    if(requestCode == AppConstant.REQUEST_CODE.CAMERA){
+        String img_path = data.getStringExtra(AppConstant.KEY.IMG_PATH);
+        img.setImageURI(Uri.parse(img_path));
+    }
+}
+```
