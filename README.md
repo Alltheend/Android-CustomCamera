@@ -5,6 +5,8 @@ You can download the apk file folder , and then install the apk demo
 
 **If you want to define your own interface , then you can view the detailed CameraActivity and change its layout file activity_camera.xml.**
 
+#[DownLoad Apk](https://github.com/jinguangyue/Android-CustomCamera/blob/master/apk/CustomCamera.apk?raw=true)
+
 
 **Some notes**
 
