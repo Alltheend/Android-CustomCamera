@@ -10,7 +10,7 @@
 [Android 自定义Camera(一)](http://blog.csdn.net/coderyue/article/details/50927177)  
 [Android 自定义Camera(二)](http://blog.csdn.net/coderyue/article/details/50966918)
 
-#[DownLoad Apk](https://github.com/jinguangyue/Android-CustomCamera/blob/master/apk/CustomCamera.apk?raw=true)
+**[DownLoad Apk](https://github.com/jinguangyue/Android-CustomCamera/blob/master/apk/CustomCamera.apk?raw=true)**
 
 
 **简单说明**
