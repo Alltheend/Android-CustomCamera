@@ -68,6 +68,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
     private ImageView camera_close;
     private RelativeLayout homecamera_bottom_relative;
     private ImageView img_camera;
+    private int picHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -294,7 +295,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
         }
     }
 
-    public void  switchCamera() {
+    public void switchCamera() {
         releaseCamera();
         mCameraId = (mCameraId + 1) % mCamera.getNumberOfCameras();
         mCamera = getCamera(mCameraId);
@@ -420,6 +421,8 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
                 Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
                 Bitmap saveBitmap = CameraUtil.getInstance().setTakePicktrueOrientation(mCameraId, bitmap);
 
+                saveBitmap = Bitmap.createScaledBitmap(saveBitmap, screenWidth, picHeight, true);
+
                 String img_path = getExternalFilesDir(Environment.DIRECTORY_DCIM).getPath() +
                         File.separator + System.currentTimeMillis() + ".jpeg";
 
@@ -435,6 +438,8 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
 
                 Intent intent = new Intent();
                 intent.putExtra(AppConstant.KEY.IMG_PATH, img_path);
+                intent.putExtra(AppConstant.KEY.PIC_WIDTH, screenWidth);
+                intent.putExtra(AppConstant.KEY.PIC_HEIGHT, picHeight);
                 setResult(AppConstant.RESULT_CODE.RESULT_OK, intent);
                 finish();
 
@@ -472,8 +477,12 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
          * 我们在startPreview方法里面把它矫正了过来，但是这里我们设置设置surfaceView的尺寸的时候要注意 previewSize.height<previewSize.width
          * previewSize.width才是surfaceView的高度
          * 一般相机都是屏幕的宽度 这里设置为屏幕宽度 高度自适应 你也可以设置自己想要的大小
+         *
          */
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(screenWidth, screenWidth * previewSize.width / previewSize.height);
+
+        picHeight = screenWidth * previewSize.width / previewSize.height;
+
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(screenWidth, picHeight);
         //这里当然可以设置拍照位置 比如居中 我这里就置顶了
         //params.gravity = Gravity.CENTER;
         surfaceView.setLayoutParams(params);

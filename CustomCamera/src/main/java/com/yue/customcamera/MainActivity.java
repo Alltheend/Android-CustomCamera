@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.yue.customcamera.utils.CameraUtil;
 
@@ -43,7 +44,13 @@ public class MainActivity extends Activity {
 
         if(requestCode == AppConstant.REQUEST_CODE.CAMERA){
             String img_path = data.getStringExtra(AppConstant.KEY.IMG_PATH);
+
+            int picWidth = data.getIntExtra(AppConstant.KEY.PIC_WIDTH, 0);
+            int picHeight = data.getIntExtra(AppConstant.KEY.PIC_HEIGHT, 0);
+
             img.setImageURI(Uri.parse(img_path));
+
+            img.setLayoutParams(new RelativeLayout.LayoutParams(picWidth, picHeight));
         }
     }
 }
