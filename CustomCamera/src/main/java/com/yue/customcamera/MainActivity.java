@@ -48,9 +48,9 @@ public class MainActivity extends Activity {
             int picWidth = data.getIntExtra(AppConstant.KEY.PIC_WIDTH, 0);
             int picHeight = data.getIntExtra(AppConstant.KEY.PIC_HEIGHT, 0);
 
+            img.setLayoutParams(new RelativeLayout.LayoutParams(picWidth, picHeight));
             img.setImageURI(Uri.parse(img_path));
 
-            img.setLayoutParams(new RelativeLayout.LayoutParams(picWidth, picHeight));
         }
     }
 }

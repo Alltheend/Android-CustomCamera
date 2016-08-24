@@ -28,6 +28,10 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
     if(requestCode == AppConstant.REQUEST_CODE.CAMERA){
         String img_path = data.getStringExtra(AppConstant.KEY.IMG_PATH);
+        int picWidth = data.getIntExtra(AppConstant.KEY.PIC_WIDTH, 0);
+        int picHeight = data.getIntExtra(AppConstant.KEY.PIC_HEIGHT, 0);
+                
+        img.setLayoutParams(new RelativeLayout.LayoutParams(picWidth, picHeight));
         img.setImageURI(Uri.parse(img_path));
     }
 }
