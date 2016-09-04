@@ -23,7 +23,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
     if(resultCode != AppConstant.RESULT_CODE.RESULT_OK){
-	//
+	//xueqiu
         return;
     }
 
