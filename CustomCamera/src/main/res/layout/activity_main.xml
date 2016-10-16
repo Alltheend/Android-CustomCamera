@@ -12,6 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/btn_video"
+        android:text="我要录制正方形视频"
+        android:layout_marginTop="30dp"
+        android:textSize="50dp"
+        android:layout_below="@+id/btn_camera"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <ImageView
         android:id="@+id/img"
         android:layout_below="@+id/btn_camera"

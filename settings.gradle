@@ -1,1 +1,1 @@
-include ':CustomCamera'
+include ':CustomCamera', ':Codelibrary', ':androidffmpeglibrary'

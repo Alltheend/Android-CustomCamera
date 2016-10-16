@@ -9,27 +9,36 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.yue.customcamera.activity.ShortVideoActivity;
+import com.yue.customcamera.base.DefaultBaseActivity;
 import com.yue.customcamera.utils.CameraUtil;
 
-public class MainActivity extends Activity {
+import static u.aly.av.ac;
+
+public class MainActivity extends DefaultBaseActivity {
 
     private Button btn_camera;
     private ImageView img;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initialize() {
         setContentView(R.layout.activity_main);
-        initView();
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         btn_camera = (Button)findViewById(R.id.btn_camera);
         img = (ImageView)findViewById(R.id.img);
         btn_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CameraUtil.getInstance().camera(MainActivity.this);
+            }
+        });
+        findViewById(R.id.btn_video).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(activity, ShortVideoActivity.class));
             }
         });
     }

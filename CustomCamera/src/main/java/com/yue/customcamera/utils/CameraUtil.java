@@ -45,6 +45,36 @@ public class CameraUtil {
         activity.startActivityForResult(intent, AppConstant.REQUEST_CODE.CAMERA);
     }
 
+    public int getRecorderRotation(int cameraId){
+        android.hardware.Camera.CameraInfo info =
+                new android.hardware.Camera.CameraInfo();
+        android.hardware.Camera.getCameraInfo(cameraId, info);
+        return info.orientation;
+    }
+
+    /**
+     * 获取所有支持的返回视频尺寸
+     *
+     * @param list
+     * @param minHeight
+     * @return
+     */
+    public Size getPropVideoSize(List<Size> list, int minHeight) {
+        Collections.sort(list, ascendSizeComparator);
+
+        int i = 0;
+        for (Size s : list) {
+            if ((s.height >= minHeight)) {
+                break;
+            }
+            i++;
+        }
+        if (i == list.size()) {
+            i = 0;//如果没找到，就选最小的size
+        }
+        return list.get(i);
+    }
+
     /**
      * 保证预览方向正确
      *
@@ -54,25 +84,17 @@ public class CameraUtil {
      */
     public void setCameraDisplayOrientation(Activity activity,
                                                    int cameraId, Camera camera) {
-        Camera.CameraInfo info =
-                new Camera.CameraInfo();
-        Camera.getCameraInfo(cameraId, info);
+        android.hardware.Camera.CameraInfo info =
+                new android.hardware.Camera.CameraInfo();
+        android.hardware.Camera.getCameraInfo(cameraId, info);
         int rotation = activity.getWindowManager().getDefaultDisplay()
                 .getRotation();
         int degrees = 0;
         switch (rotation) {
-            case Surface.ROTATION_0:
-                degrees = 0;
-                break;
-            case Surface.ROTATION_90:
-                degrees = 90;
-                break;
-            case Surface.ROTATION_180:
-                degrees = 180;
-                break;
-            case Surface.ROTATION_270:
-                degrees = 270;
-                break;
+            case Surface.ROTATION_0: degrees = 0; break;
+            case Surface.ROTATION_90: degrees = 90; break;
+            case Surface.ROTATION_180: degrees = 180; break;
+            case Surface.ROTATION_270: degrees = 270; break;
         }
 
         int result;
