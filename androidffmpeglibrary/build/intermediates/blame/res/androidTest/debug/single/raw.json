@@ -4,6 +4,10 @@
         "source": "G:\\Android_source\\CustomCamera\\Android-CustomCamera\\androidffmpeglibrary\\build\\intermediates\\bundles\\debug\\res\\raw\\ffmpeg"
     },
     {
+        "merged": "C:\\android_source\\Android-CustomCamera\\androidffmpeglibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\ffmpeg",
+        "source": "C:\\android_source\\Android-CustomCamera\\androidffmpeglibrary\\build\\intermediates\\bundles\\debug\\res\\raw\\ffmpeg"
+    },
+    {
         "merged": "D:\\Android_coding\\CustomCamera\\CustomCamera\\androidffmpeglibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\ffmpeg",
         "source": "D:\\Android_coding\\CustomCamera\\CustomCamera\\androidffmpeglibrary\\build\\intermediates\\bundles\\debug\\res\\raw\\ffmpeg"
     }
