@@ -36,3 +36,5 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 }
 ```
+
+#Note: If you do not need to cut the square ffmpeg video works can be removed to reduce the apk volume

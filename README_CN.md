@@ -40,3 +40,5 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 }
 ```
+
+#注意: 如果不需要裁剪正方形视频 可以将ffmpeg工程去掉 减少apk体积
