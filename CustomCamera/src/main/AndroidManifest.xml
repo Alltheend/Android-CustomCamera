@@ -63,7 +63,8 @@
         <activity
             android:name=".activity.ShortVideoActivity"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
-        <activity android:name=".activity.PlayVideoActivity"></activity>
+        <activity android:name=".activity.PlayVideoActivity" />
+        <activity android:name=".activity.ShowPicActivity"></activity>
     </application>
 
 </manifest>

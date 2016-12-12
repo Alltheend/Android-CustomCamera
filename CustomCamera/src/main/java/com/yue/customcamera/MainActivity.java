@@ -1,24 +1,18 @@
 package com.yue.customcamera;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.yue.customcamera.activity.ShortVideoActivity;
+import com.yue.customcamera.activity.ShowPicActivity;
 import com.yue.customcamera.base.DefaultBaseActivity;
 import com.yue.customcamera.utils.CameraUtil;
-
-import static u.aly.av.ac;
 
 public class MainActivity extends DefaultBaseActivity {
 
     private Button btn_camera;
-    private ImageView img;
+//    private ImageView img;
 
     @Override
     protected void initialize() {
@@ -28,7 +22,7 @@ public class MainActivity extends DefaultBaseActivity {
     @Override
     protected void initView() {
         btn_camera = (Button)findViewById(R.id.btn_camera);
-        img = (ImageView)findViewById(R.id.img);
+//        img = (ImageView)findViewById(R.id.img);
         btn_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,10 +50,15 @@ public class MainActivity extends DefaultBaseActivity {
 
             int picWidth = data.getIntExtra(AppConstant.KEY.PIC_WIDTH, 0);
             int picHeight = data.getIntExtra(AppConstant.KEY.PIC_HEIGHT, 0);
-
+/*
             img.setLayoutParams(new RelativeLayout.LayoutParams(picWidth, picHeight));
             img.setImageURI(Uri.parse(img_path));
-
+            */
+            Intent intent = new Intent(activity, ShowPicActivity.class);
+            intent.putExtra(AppConstant.KEY.PIC_WIDTH, picWidth);
+            intent.putExtra(AppConstant.KEY.PIC_HEIGHT, picHeight);
+            intent.putExtra(AppConstant.KEY.IMG_PATH, img_path);
+            startActivity(intent);
         }
     }
 }

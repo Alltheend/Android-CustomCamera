@@ -431,11 +431,14 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
                 Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
                 Bitmap saveBitmap = CameraUtil.getInstance().setTakePicktrueOrientation(mCameraId, bitmap);
 
-                saveBitmap = Bitmap.createScaledBitmap(saveBitmap, screenWidth, picHeight, true);
+//                saveBitmap = Bitmap.createScaledBitmap(saveBitmap, screenWidth, picHeight, true);
 
                 if (index == 1) {
                     //正方形 animHeight(动画高度)
                     saveBitmap = Bitmap.createBitmap(saveBitmap, 0, animHeight + SystemUtils.dp2px(context, 44), screenWidth, screenWidth);
+                } else {
+                    //正方形 animHeight(动画高度)
+                    saveBitmap = Bitmap.createBitmap(saveBitmap, 0, 0, screenWidth, screenWidth * 4/3);
                 }
 
                 String img_path = getExternalFilesDir(Environment.DIRECTORY_DCIM).getPath() +
@@ -479,10 +482,10 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
         }
 
         //这里第三个参数为最小尺寸 getPropPreviewSize方法会对从最小尺寸开始升序排列 取出所有支持尺寸的最小尺寸
-        Camera.Size previewSize = CameraUtil.getInstance().getPropPreviewSize(parameters.getSupportedPreviewSizes(), screenWidth);
+        Camera.Size previewSize = CameraUtil.getInstance().getPropSizeForHeight(parameters.getSupportedPreviewSizes(), screenWidth);
         parameters.setPreviewSize(previewSize.width, previewSize.height);
 
-        Camera.Size pictrueSize = CameraUtil.getInstance().getPropPictureSize(parameters.getSupportedPictureSizes(), screenWidth);
+        Camera.Size pictrueSize = CameraUtil.getInstance().getPropSizeForHeight(parameters.getSupportedPictureSizes(), screenWidth);
         parameters.setPictureSize(pictrueSize.width, pictrueSize.height);
 
         camera.setParameters(parameters);

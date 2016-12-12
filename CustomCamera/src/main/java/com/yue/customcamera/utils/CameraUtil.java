@@ -5,7 +5,6 @@ package com.yue.customcamera.utils;
  */
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -13,6 +12,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.Size;
 import android.view.Surface;
 
+import com.code.library.utils.LogUtils;
 import com.yue.customcamera.AppConstant;
 import com.yue.customcamera.activity.CameraActivity;
 
@@ -180,6 +180,43 @@ public class CameraUtil {
             i = 0;//如果没找到，就选最小的size
         }
         return list.get(i);
+    }
+
+    /**
+     * 获取所有支持的返回视频尺寸
+     *
+     * @param list
+     * @param minHeight
+     * @return
+     */
+    public Size getPropSizeForHeight(List<Size> list, int minHeight) {
+        Collections.sort(list, new CameraAscendSizeComparatorForHeight());
+
+        int i = 0;
+        for (Size s : list) {
+            if ((s.height >= minHeight)) {
+                LogUtils.i("s.height===" + s.height);
+                break;
+            }
+            i++;
+        }
+        if (i == list.size()) {
+            i = 0;//如果没找到，就选最小的size
+        }
+        return list.get(i);
+    }
+
+    //升序 按照高度
+    public class CameraAscendSizeComparatorForHeight implements Comparator<Size> {
+        public int compare(Size lhs, Size rhs) {
+            if (lhs.height == rhs.height) {
+                return 0;
+            } else if (lhs.height > rhs.height) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
     }
 
     public boolean equalRate(Size s, float rate) {
