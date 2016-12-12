@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.code.library.toast.ToastFactory;
 import com.yue.customcamera.AppConstant;
 import com.yue.customcamera.R;
 import com.yue.customcamera.utils.BitmapUtils;
@@ -36,8 +37,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
     private Camera mCamera;
     private SurfaceView surfaceView;
     private SurfaceHolder mHolder;
-    //默认前置或者后置相机 这里暂时设置为前置
-    private int mCameraId = 1;
+    private int mCameraId = 0;
     private Context context;
 
     //屏幕宽高
@@ -241,23 +241,33 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
 
             //闪光灯
             case R.id.flash_light:
+                if(mCameraId == 1){
+                    //前置
+                    ToastFactory.showLongToast(context, "请切换为后置摄像头开启闪光灯");
+                    return;
+                }
+                Camera.Parameters parameters = mCamera.getParameters();
                 switch (light_num) {
                     case 0:
                         //打开
                         light_num = 1;
                         flash_light.setImageResource(R.drawable.btn_camera_flash_on);
-//                        CameraUtil.getInstance().turnLightOn(mCamera);
+                        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);//开启
+                        mCamera.setParameters(parameters);
                         break;
                     case 1:
                         //自动
                         light_num = 2;
-//                        CameraUtil.getInstance().turnLightAuto(mCamera);
+                        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_AUTO);
+                        mCamera.setParameters(parameters);
                         flash_light.setImageResource(R.drawable.btn_camera_flash_auto);
                         break;
                     case 2:
                         //关闭
                         light_num = 0;
-//                        CameraUtil.getInstance().turnLightOff(mCamera);
+                        //关闭
+                        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                        mCamera.setParameters(parameters);
                         flash_light.setImageResource(R.drawable.btn_camera_flash_off);
                         break;
                 }
@@ -422,6 +432,11 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
                 Bitmap saveBitmap = CameraUtil.getInstance().setTakePicktrueOrientation(mCameraId, bitmap);
 
                 saveBitmap = Bitmap.createScaledBitmap(saveBitmap, screenWidth, picHeight, true);
+
+                if (index == 1) {
+                    //正方形 animHeight(动画高度)
+                    saveBitmap = Bitmap.createBitmap(saveBitmap, 0, animHeight + SystemUtils.dp2px(context, 44), screenWidth, screenWidth);
+                }
 
                 String img_path = getExternalFilesDir(Environment.DIRECTORY_DCIM).getPath() +
                         File.separator + System.currentTimeMillis() + ".jpeg";
