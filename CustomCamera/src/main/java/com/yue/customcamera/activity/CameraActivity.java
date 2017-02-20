@@ -31,7 +31,6 @@ import com.yue.customcamera.utils.SystemUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class CameraActivity extends Activity implements SurfaceHolder.Callback, View.OnClickListener {
     private Camera mCamera;
@@ -431,7 +430,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
                 Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
                 Bitmap saveBitmap = CameraUtil.getInstance().setTakePicktrueOrientation(mCameraId, bitmap);
 
-//                saveBitmap = Bitmap.createScaledBitmap(saveBitmap, screenWidth, picHeight, true);
+                saveBitmap = Bitmap.createScaledBitmap(saveBitmap, screenWidth, picHeight, true);
 
                 if (index == 1) {
                     //正方形 animHeight(动画高度)
@@ -475,17 +474,16 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
     private void setupCamera(Camera camera) {
         Camera.Parameters parameters = camera.getParameters();
 
-        List<String> focusModes = parameters.getSupportedFocusModes();
-        if (focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO)) {
-            // Autofocus mode is supported 自动对焦
-            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+        if (parameters.getSupportedFocusModes().contains(
+                Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         }
 
         //这里第三个参数为最小尺寸 getPropPreviewSize方法会对从最小尺寸开始升序排列 取出所有支持尺寸的最小尺寸
-        Camera.Size previewSize = CameraUtil.getInstance().getPropSizeForHeight(parameters.getSupportedPreviewSizes(), screenWidth);
+        Camera.Size previewSize = CameraUtil.getInstance().getPropSizeForHeight(parameters.getSupportedPreviewSizes(), 800);
         parameters.setPreviewSize(previewSize.width, previewSize.height);
 
-        Camera.Size pictrueSize = CameraUtil.getInstance().getPropSizeForHeight(parameters.getSupportedPictureSizes(), screenWidth);
+        Camera.Size pictrueSize = CameraUtil.getInstance().getPropSizeForHeight(parameters.getSupportedPictureSizes(), 800);
         parameters.setPictureSize(pictrueSize.width, pictrueSize.height);
 
         camera.setParameters(parameters);
@@ -498,9 +496,9 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
          *
          */
 
-        picHeight = screenWidth * previewSize.width / previewSize.height;
+        picHeight = (screenWidth * pictrueSize.width) / pictrueSize.height;
 
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(screenWidth, picHeight);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(screenWidth, (screenWidth * pictrueSize.width) / pictrueSize.height);
         //这里当然可以设置拍照位置 比如居中 我这里就置顶了
         //params.gravity = Gravity.CENTER;
         surfaceView.setLayoutParams(params);
