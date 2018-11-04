@@ -1,6 +1,10 @@
 package com.yue.customcamera;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 
@@ -26,7 +30,16 @@ public class MainActivity extends DefaultBaseActivity {
         btn_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CameraUtil.getInstance().camera(MainActivity.this);
+
+                if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //未授权，提起权限申请
+                    ActivityCompat.requestPermissions(activity,
+                            new String[]{Manifest.permission.CAMERA},
+                            AppConstant.PERMISSION.CAMERA);
+                } else {
+                    CameraUtil.getInstance().camera(MainActivity.this);
+                }
             }
         });
         findViewById(R.id.btn_video).setOnClickListener(new View.OnClickListener() {
@@ -35,6 +48,22 @@ public class MainActivity extends DefaultBaseActivity {
                 startActivity(new Intent(activity, ShortVideoActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //判断请求码，确定当前申请的权限
+        if (requestCode == AppConstant.PERMISSION.CAMERA) {
+            //判断权限是否申请通过
+            if (grantResults != null && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                CameraUtil.getInstance().camera(MainActivity.this);
+            } else {
+                //授权失败
+//                requestSdcardFailed(AppConstant.PERMISSION.REQUEST_STORAGE_SEARCH, Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+        }
     }
 
     @Override

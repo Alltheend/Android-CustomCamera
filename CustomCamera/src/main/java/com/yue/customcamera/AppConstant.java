@@ -9,6 +9,10 @@ public class AppConstant {
         int ERROR = 2;
     }
 
+    public interface PERMISSION{
+        int CAMERA = 0;
+    }
+
     public interface KEY{
         String IMG_PATH = "IMG_PATH";
         String VIDEO_PATH = "VIDEO_PATH";
